@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Project;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -24,7 +26,19 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $users = User::all();
-        return view('home', compact('users'));
+        if (Auth::user()){
+            $user = Auth::user();
+            if($user->is_admin){
+                $users = User::all();
+                return view('users.index', compact('users'));
+
+            }else{
+                $projects = Project::all();
+                return view('project.index',compact('projects'));
+            }
+        } else {
+            return view('home.blade');
+        }
+
     }
 }

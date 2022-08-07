@@ -13,13 +13,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('auth.login');
-});
+//Route::get('/', function () {
+//    return view('auth.login');
+//});
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index']);
+
 
 Auth::routes();
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index']);
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/projects', [App\Http\Controllers\ProjectController::class, 'index'])->name('projectIndex');
+Route::get('/projects/create', [App\Http\Controllers\ProjectController::class, 'create'])->name('projectCreate');
+Route::post('/projects/store', [App\Http\Controllers\ProjectController::class, 'store'])->name('projectStore');
 
 Auth::routes();
 
