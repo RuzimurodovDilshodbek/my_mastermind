@@ -18,6 +18,11 @@ class ProjectController extends Controller
             return view('projects.create');
     }
 
+    public function show($id)
+    {
+            return view('projects.create');
+    }
+
     public function store(Request $request)
     {
         Project::create([
